@@ -8,18 +8,19 @@ UINT  _tx_semaphore_info_get(TX_SEMAPHORE *semaphore_ptr, CHAR **name, ULONG *cu
 {
     RT_ASSERT(semaphore_ptr && name && current_value && first_suspended && suspended_count && next_semaphore);
 
-    struct rt_list_node *n;
+    rt_list_t *n;
+    rt_sem_t Sem_temp_ptr = (rt_sem_t)semaphore_ptr;
     *suspended_count = 0;
     rt_base_t level;
     level = rt_hw_interrupt_disable();
 
-    *name = semaphore_ptr->parent.parent.name;
+    *name = Sem_temp_ptr->parent.parent.name;
 
-    *current_value = semaphore_ptr->value;
+    *current_value = Sem_temp_ptr->value;
 
-    *first_suspended = mutex_ptr->parent.suspend_thread.next;
+    *first_suspended = Sem_temp_ptr->parent.suspend_thread.next;
 
-    for (n = mutex_ptr->parent.suspend_thread.next; n != mutex_ptr->parent.suspend_thread; n = n->next, suspended_count++);
+    for (n = Sem_temp_ptr->parent.suspend_thread.next; n != &(Sem_temp_ptr->parent.suspend_thread); n = n->next, suspended_count++);
 
     *next_semaphore = TX_NULL;
 

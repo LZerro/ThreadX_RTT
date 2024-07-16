@@ -8,18 +8,19 @@ UINT  _tx_block_pool_info_get(TX_BLOCK_POOL *pool_ptr, CHAR **name, ULONG *avail
 {
     RT_ASSERT(pool_ptr && name && available_blocks && total_blocks && first_suspended && suspended_count && next_pool);
 
-    struct rt_list_node *n;
+    rt_list_t *n;
+    rt_mp_t Block_pool_temp_ptr = (rt_mp_t)pool_ptr;
     *suspended_count = 0;
     rt_base_t level;
     level = rt_hw_interrupt_disable();
 
-    *name = pool_ptr->parent.name;
+    *name = Block_pool_temp_ptr->parent.name;
 
-    *available_blocks = pool_ptr->block_free_count;
+    *available_blocks = Block_pool_temp_ptr->block_free_count;
 
-    *first_suspended = pool_ptr->suspend_thread.next;
+    *first_suspended = Block_pool_temp_ptr->suspend_thread.next;
 
-    for (n = pool_ptr->suspend_thread.next; n != pool_ptr->suspend_thread; n = n->next, suspended_count++);
+    for (n = Block_pool_temp_ptr->suspend_thread.next; n != &(Block_pool_temp_ptr->suspend_thread); n = n->next, suspended_count++);
 
     *next_pool = TX_NULL;
 

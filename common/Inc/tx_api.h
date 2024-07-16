@@ -448,7 +448,7 @@ typedef struct TX_THREAD_STRUCT
 
 typedef struct TX_BLOCK_POOL_STRUCT
 {
-    rt_mempool RT_MEM;
+    struct rt_mempool RT_MEM;
 } TX_BLOCK_POOL;
 
 
@@ -585,6 +585,8 @@ typedef struct TX_SEMAPHORE_STRUCT
    application source code, hence the conditional that turns off this
    stuff when the include file is processed by the ThreadX source. */
 
+typedef void (*thread_entry_func)(void*);
+
 #ifndef TX_SOURCE_CODE
 
 
@@ -594,8 +596,6 @@ typedef struct TX_SEMAPHORE_STRUCT
    Note: error checking is enabled by default.  */
 
 #ifdef TX_DISABLE_ERROR_CHECKING
-
-typedef void (*thread_entry_func)(void*);
 
 /* Services without error checking.  */
 

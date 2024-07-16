@@ -20,7 +20,6 @@ UINT  _tx_timer_create(TX_TIMER *timer_ptr, CHAR *name_ptr,
     rt_timer_init((struct rt_timer*)timer_ptr, name_ptr,
                   (thread_entry_func)expiration_function, (void*)expiration_input,
                   initial_ticks, timer_ptr->TIME_START_FLAG );
-    }
 
     if(auto_activate == TX_AUTO_ACTIVATE)
     {
