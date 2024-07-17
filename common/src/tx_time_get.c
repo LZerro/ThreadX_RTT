@@ -2,7 +2,7 @@
 
 #include "tx_api.h"
 
-ULONG  _tx_time_get(VOID)
+ULONG _tx_time_get(VOID)
 {
     return rt_tick_get();
 }

@@ -441,6 +441,9 @@ typedef struct TX_TIMER_STRUCT
 typedef struct TX_THREAD_STRUCT
 {
     struct rt_thread thread;
+
+    ULONG tx_thread_id;
+
 } TX_THREAD;
 
 
@@ -577,6 +580,10 @@ typedef struct TX_SEMAPHORE_STRUCT
 {
     struct rt_semaphore RT_SEM;
 
+    ULONG               tx_semaphore_id;
+
+    ULONG               tx_semaphore_count;
+
 } TX_SEMAPHORE;
 
 
@@ -587,8 +594,9 @@ typedef struct TX_SEMAPHORE_STRUCT
 
 typedef void (*thread_entry_func)(void*);
 
-#ifndef TX_SOURCE_CODE
+// #ifndef TX_SOURCE_CODE
 
+#define TX_DISABLE_ERROR_CHECKING
 
 /* Determine if error checking is desired.  If so, map API functions
    to the appropriate error checking front-ends.  Otherwise, map API
@@ -948,7 +956,7 @@ UINT    _tx_el_interrupt_control(UINT new_posture);
 #endif
 #endif
 
-#endif
+// #endif
 
 
 /* Declare the tx_application_define function as having C linkage.  */

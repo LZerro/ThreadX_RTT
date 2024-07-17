@@ -16,7 +16,7 @@ UINT  _tx_semaphore_ceiling_put(TX_SEMAPHORE *semaphore_ptr, ULONG ceiling)
     {
         rt_sem_release((rt_sem_t)semaphore_ptr);
         rt_hw_interrupt_enable( level );
-
+        semaphore_ptr->tx_semaphore_count++;
         status = TX_SUCCESS;
     }
     else

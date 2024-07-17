@@ -8,5 +8,7 @@ UINT  _tx_semaphore_put(TX_SEMAPHORE *semaphore_ptr)
 
     rt_sem_release((rt_sem_t)semaphore_ptr);
 
+    semaphore_ptr->tx_semaphore_count++;
+
     return TX_SUCCESS;
 }

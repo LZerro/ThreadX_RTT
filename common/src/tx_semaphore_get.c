@@ -11,5 +11,7 @@ UINT  _tx_semaphore_get(TX_SEMAPHORE *semaphore_ptr, ULONG wait_option)
         return TX_SUCCESS;
     }
 
+    semaphore_ptr -> tx_semaphore_count--;
+
     return TX_NO_INSTANCE;
 }
