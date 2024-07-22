@@ -444,6 +444,10 @@ typedef struct TX_THREAD_STRUCT
 
     ULONG tx_thread_id;
 
+    VOID                *tx_thread_stack_start;         /* Stack starting address   */
+
+    VOID                *tx_thread_stack_end;           /* Stack ending address     */
+
 } TX_THREAD;
 
 
@@ -530,6 +534,9 @@ typedef struct TX_BYTE_POOL_STRUCT
 typedef struct TX_EVENT_FLAGS_GROUP_STRUCT
 {
     struct rt_event RT_ENENT;
+
+    ULONG tx_event_flags_group_id;
+
 } TX_EVENT_FLAGS_GROUP;
 
 
